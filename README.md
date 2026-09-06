@@ -32,7 +32,7 @@ The architecture diagram is also available in the repository:
 
 We use a Scrum board to organize our work, track progress, and collaborate throughout the development process.
 
-[View our Scrum Board]((https://github.com/orgs/entreprisewebdev/projects/1))
+[View our scrum board](https://github.com/orgs/entreprisewebdev/projects/1)
 
 Our board contains the following stages:
 
