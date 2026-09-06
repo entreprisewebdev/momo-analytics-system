@@ -24,7 +24,7 @@ The architecture will allow the system to process raw transaction data and trans
 
 ### Architecture Diagram
 
-[View our System Architecture](PASTE-DRAWIO-OR-MIRO-LINK-HERE)
+(https://drive.google.com/file/d/1d7LZ1N_xzwSCrUD2ICQTqSIA67nqOvrM/view?usp=sharing)
 
 The architecture diagram is also available in the repository:
 
