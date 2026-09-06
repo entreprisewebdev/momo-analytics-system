@@ -11,14 +11,14 @@ The **MoMo Analytics System** is a full-stack application designed to process an
 ## Team Members
 
 * **Isingizwe Mukama Elohim Malaïka**
-* **Erica Sheja**
+* **Erica Sheja Rurangwa**
 * **Ishimwe Samuel**
 
 ## System Architecture
 
 The planned system will follow this workflow:
 
-**MoMo XML Data → XML Parser → Data Cleaning & Normalization → Transaction Categorization → Database → API → Frontend Dashboard**
+**MoMo XML Data → XML Parser → Data Cleaning & Normalization → Transaction Categorization → Database → API → Frontend Dashboard -> scripts --> Testing**
 
 The architecture will allow the system to process raw transaction data and transform it into useful information that can be explored through the dashboard.
 
@@ -32,7 +32,7 @@ The architecture diagram is also available in the repository:
 
 We use a Scrum board to organize our work, track progress, and collaborate throughout the development process.
 
-[View our Scrum Board](PASTE-SCRUM-BOARD-LINK-HERE)
+[View our Scrum Board]((https://github.com/orgs/entreprisewebdev/projects/1))
 
 Our board contains the following stages:
 
