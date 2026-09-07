@@ -28,6 +28,8 @@ The architecture will allow the system to process raw transaction data and trans
 
 The architecture diagram is also available in the repository:
 
+![MoMo Analytics System Architecture](architecture/system-architecture.png)
+
 ## Scrum Board
 
 We use a Scrum board to organize our work, track progress, and collaborate throughout the development process.
