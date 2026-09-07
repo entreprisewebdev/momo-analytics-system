@@ -1,0 +1,8 @@
+.env
+data/raw/*.xml
+data/db.sqlite3
+data/logs/*.log
+__pycache__/
+*.pyc
+.venv/
+venv/
