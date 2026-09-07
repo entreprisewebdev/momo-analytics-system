@@ -44,12 +44,15 @@ Our board contains the following stages:
 
 ## Project Structure
 
-momo-analytics-system
-.
+```text
+momo-analytics-system/
 ├── README.md
+├── .gitignore
 ├── .env.example
 ├── requirements.txt
 ├── index.html
+├── architecture/
+│   └── system-architecture.png
 ├── web/
 │   ├── styles.css
 │   ├── chart_handler.js
@@ -73,11 +76,15 @@ momo-analytics-system
 │   ├── db.py
 │   └── schemas.py
 ├── scripts/
+│   ├── run_etl.sh
+│   ├── export_json.sh
+│   └── serve_frontend.sh
 └── tests/
     ├── test_parse_xml.py
     ├── test_clean_normalize.py
     └── test_categorize.py
 ```
+
 
 ## Planned Features
 
