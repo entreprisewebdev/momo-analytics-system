@@ -139,6 +139,14 @@ momo-analytics-system/
 │   ├── processed/
 │   └── logs/
 │       └── dead_letter/
+├── docs/
+│   ├── Database_Design_Document.pdf
+│   ├── ERD.png
+│   └── AI_Usage_Log.pdf
+├── examples/
+│   ├── json_schemas.json
+├── database/
+│   ├── database_setup.sql
 ├── etl/
 │   ├── __init__.py
 │   ├── config.py
