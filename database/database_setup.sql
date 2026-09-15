@@ -7,7 +7,7 @@ CREATE TABLE users (
 
     phone_number VARCHAR(20) NOT NULL UNIQUE, -- 'Unique mobile phone number registered to the user'
 
-    name VARCHAR(100) NOT NULL, -- 'Full name of the mobile money user'
+    name VARCHAR(100) NOT NULL -- 'Full name of the mobile money user'
 );
 
 
@@ -16,7 +16,7 @@ CREATE TABLE transaction_categories (
 
     category_name VARCHAR(50) NOT NULL UNIQUE, -- 'Name of the transaction category such as TRANSFER or PAYMENT'
 
-    description VARCHAR(255), -- 'Brief explanation of what the transaction category represents'
+    description VARCHAR(255) -- 'Brief explanation of what the transaction category represents'
 );
 
 
