@@ -3,35 +3,35 @@ CREATE DATABASE IF NOT EXISTS momo_analytics;
 USE momo_analytics;
 
 CREATE TABLE users (
-    user_id INT PRIMARY KEY AUTO_INCREMENT -- 'Unique identifier for each user',
+    user_id INT PRIMARY KEY AUTO_INCREMENT, -- 'Unique identifier for each user'
 
-    phone_number VARCHAR(20) NOT NULL UNIQUE -- 'Unique mobile phone number registered to the user',
+    phone_number VARCHAR(20) NOT NULL UNIQUE, -- 'Unique mobile phone number registered to the user'
 
-    name VARCHAR(100) NOT NULL -- 'Full name of the mobile money user'
+    name VARCHAR(100) NOT NULL, -- 'Full name of the mobile money user'
 );
 
 
 CREATE TABLE transaction_categories (
-    category_id INT PRIMARY KEY AUTO_INCREMENT -- 'Unique identifier for each transaction category',
+    category_id INT PRIMARY KEY AUTO_INCREMENT, -- 'Unique identifier for each transaction category'
 
-    category_name VARCHAR(50) NOT NULL UNIQUE -- 'Name of the transaction category such as TRANSFER or PAYMENT',
+    category_name VARCHAR(50) NOT NULL UNIQUE, -- 'Name of the transaction category such as TRANSFER or PAYMENT'
 
-    description VARCHAR(255) -- 'Brief explanation of what the transaction category represents'
+    description VARCHAR(255), -- 'Brief explanation of what the transaction category represents'
 );
 
 
 CREATE TABLE transactions (
-    transaction_id INT PRIMARY KEY AUTO_INCREMENT -- 'Unique identifier for each transaction',
+    transaction_id INT PRIMARY KEY AUTO_INCREMENT, -- 'Unique identifier for each transaction'
 
-    amount DECIMAL(15,2) NOT NULL -- 'Amount of money involved in the transaction',
+    amount DECIMAL(15,2) NOT NULL, -- 'Amount of money involved in the transaction'
 
-    transaction_time DATETIME NOT NULL --'Date and time when the transaction occurred',
+    transaction_time DATETIME NOT NULL, --'Date and time when the transaction occurred'
 
-    processed_by VARCHAR(100) NOT NULL  -- 'System or staff member responsible for processing the transaction',
+    processed_by VARCHAR(100) NOT NULL, -- 'System or staff member responsible for processing the transaction'
 
-    status VARCHAR(20) NOT NULL  -- 'Current processing status of the transaction',
+    status VARCHAR(20) NOT NULL,  -- 'Current processing status of the transaction'
 
-    category_id INT NOT NULL -- 'Identifier linking the transaction to its category',
+    category_id INT NOT NULL, -- 'Identifier linking the transaction to its category'
 
     CONSTRAINT chk_transaction_amount
         CHECK (amount > 0),
@@ -46,11 +46,11 @@ CREATE TABLE transactions (
 
 
 CREATE TABLE transaction_participants (
-    transaction_id INT NOT NULL  -- 'Identifier of the transaction involving the user',
+    transaction_id INT NOT NULL, -- 'Identifier of the transaction involving the user'
 
-    user_id INT NOT NULL  -- 'Identifier of the user participating in the transaction',
+    user_id INT NOT NULL,  -- 'Identifier of the user participating in the transaction'
 
-    role VARCHAR(20) NOT NULL -- 'Role of the user in the transaction: sender or receiver',
+    role VARCHAR(20) NOT NULL, -- 'Role of the user in the transaction: sender or receiver'
 
     PRIMARY KEY (transaction_id, user_id),
 
@@ -70,15 +70,15 @@ CREATE TABLE transaction_participants (
 
 
 CREATE TABLE system_logs (
-    log_id INT PRIMARY KEY AUTO_INCREMENT -- 'Unique identifier for each system log entry',
+    log_id INT PRIMARY KEY AUTO_INCREMENT, -- 'Unique identifier for each system log entry'
 
-    transaction_id INT NOT NULL -- 'Identifier of the transaction associated with the log',
+    transaction_id INT NOT NULL, -- 'Identifier of the transaction associated with the log'
 
-    log_message VARCHAR(255) NOT NULL -- 'Description of the event or action recorded by the system',
+    log_message VARCHAR(255) NOT NULL, -- 'Description of the event or action recorded by the system'
 
-    log_level VARCHAR(20) NOT NULL -- 'Severity level of the log such as INFO, WARNING, or ERROR',
+    log_level VARCHAR(20) NOT NULL, -- 'Severity level of the log such as INFO, WARNING, or ERROR'
 
-    log_time DATETIME NOT NULL --'Date and time when the system event was recorded',
+    log_time DATETIME NOT NULL, --'Date and time when the system event was recorded'
 
     CONSTRAINT fk_log_transaction
         FOREIGN KEY (transaction_id)
