@@ -203,6 +203,7 @@ The project is planned to use:
 
 ### Erica Sheja Rurangwa
 - Scrum Board
+- Final checks and changes on the SQL database setup
 - Entity Relationship Diagram (ERD)
 - README updates
 
