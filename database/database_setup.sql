@@ -111,6 +111,63 @@ CREATE INDEX idx_logs_transaction
 CREATE INDEX idx_logs_level
     ON system_logs(log_level);
 
+-- Creates a reusable view that displays transaction details, including the category, sender and receiver
+
+CREATE VIEW transaction_summary AS
+SELECT
+    t.transaction_id,
+    t.amount,
+    t.transaction_time,
+    t.status,
+    tc.category_name,
+    u_sender.name AS sender_name,
+    u_receiver.name AS receiver_name
+FROM transactions t
+JOIN transaction_categories tc
+    ON t.category_id = tc.category_id
+JOIN transaction_participants tp_sender
+    ON t.transaction_id = tp_sender.transaction_id
+    AND tp_sender.role = 'SENDER'
+JOIN users u_sender
+    ON tp_sender.user_id = u_sender.user_id
+JOIN transaction_participants tp_receiver
+    ON t.transaction_id = tp_receiver.transaction_id
+    AND tp_receiver.role = 'RECEIVER'
+JOIN users u_receiver
+    ON tp_receiver.user_id = u_receiver.user_id;
+
+
+-- Test the view by selecting data from it
+
+SELECT * FROM transaction_summary;
+
+-- Creates a reusable view showing each user's transaction history
+
+CREATE VIEW user_transaction_history AS
+SELECT
+    u.user_id,
+    u.name,
+    u.phone_number,
+    t.transaction_id,
+    tp.role,
+    t.amount,
+    t.transaction_time,
+    tc.category_name,
+    t.status
+FROM users u
+JOIN transaction_participants tp
+    ON u.user_id = tp.user_id
+JOIN transactions t
+    ON tp.transaction_id = t.transaction_id
+JOIN transaction_categories tc
+    ON t.category_id = tc.category_id;
+
+-- Test the view by selecting data from it
+
+SELECT *
+FROM user_transaction_history
+ORDER BY transaction_time DESC;    
+
 
 INSERT INTO users (phone_number, name)
 VALUES
@@ -167,6 +224,51 @@ VALUES
 (3, 'Airtime purchase completed', 'INFO', '2026-09-10 10:00:05'),
 (4, 'Transaction is awaiting processing', 'WARNING', '2026-09-10 11:45:05'),
 (5, 'Transaction processing failed', 'ERROR', '2026-09-10 13:20:05');
+
+-- Transaction Statistics by Status
+
+SELECT
+    status,
+    COUNT(*) AS transaction_count,
+    SUM(amount) AS total_amount,
+    AVG(amount) AS average_amount
+FROM transactions
+GROUP BY status;
+
+-- User Transaction Activity
+
+SELECT
+    u.user_id,
+    u.name,
+    u.phone_number,
+    COUNT(DISTINCT tp.transaction_id) AS transaction_count,
+    SUM(t.amount) AS total_transaction_amount
+FROM users u
+JOIN transaction_participants tp
+    ON u.user_id = tp.user_id
+JOIN transactions t
+    ON tp.transaction_id = t.transaction_id
+GROUP BY
+    u.user_id,
+    u.name,
+    u.phone_number
+ORDER BY total_transaction_amount DESC;
+
+-- Transaction Analytics by Category
+
+SELECT
+    tc.category_name,
+    COUNT(t.transaction_id) AS transaction_count,
+    SUM(t.amount) AS total_amount,
+    AVG(t.amount) AS average_amount
+FROM transactions t
+JOIN transaction_categories tc
+    ON t.category_id = tc.category_id
+GROUP BY
+    tc.category_id,
+    tc.category_name
+ORDER BY total_amount DESC;
+
 
 SELECT * FROM users;
 SELECT * FROM transaction_categories;
