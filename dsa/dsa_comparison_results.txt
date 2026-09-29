@@ -1,0 +1,48 @@
+MoMo SMS API - DSA Comparison Report
+=====================================
+
+Data source: modified_sms_v2.xml (real parsed transactions)
+Number of transactions searched over: 1691
+Number of searches timed per method:  10000
+
+Linear Search total time:     0.896232 seconds
+Dictionary Lookup total time: 0.002017 seconds
+Dictionary lookup was approximately 444.2x faster than linear search.
+
+REFLECTION
+----------
+
+Q: Why is dictionary lookup faster than linear search?
+
+A: A list has no idea where a specific id lives, so linear search
+has to check items one at a time until it finds a match - in the
+worst case it checks every single item. A dictionary works
+differently: it uses a hash table, which turns the key (the id)
+into a "hash" number and uses that number to jump almost directly
+to the right memory slot. That means a dictionary lookup takes
+roughly the same amount of time whether there are 20 transactions
+or 20 million (this is called O(1), constant time), while linear
+search gets slower as the list grows (this is called O(n), linear
+time). The trade-off is that the dictionary uses extra memory and
+must be built once up front.
+
+Q: Can you suggest another data structure or algorithm that could
+   improve search efficiency?
+
+A: If we needed to search by something other than a unique id (for
+example, "find all transactions between amount X and amount Y", or
+"find the next transaction after a certain timestamp"), a
+dictionary alone would not help, since it is only fast for exact-key
+lookups. A better fit for range-based searches would be:
+
+  - Binary Search on a sorted list: if we keep the transactions
+    sorted by id (or by amount, or by date), binary search can find
+    a record in O(log n) time by repeatedly cutting the search area
+    in half. This is slower than a dictionary for exact-id lookups,
+    but it naturally supports range queries that dictionaries can't.
+
+  - A balanced tree structure like a B-Tree (which is what most real
+    databases use internally for indexes): it keeps data sorted AND
+    gives fast O(log n) lookups, so it's a nice middle ground between
+    a plain list and a hash-based dictionary, especially for large,
+    frequently-updated datasets like our MoMo transaction records.

@@ -1,8 +1,7 @@
 """
 xml_parser.py
-----------------------------------------------------------------
 Task 1: Data Parsing
-----------------------------------------------------------------
+
 
 WHAT THIS FILE DOES
 Reads the raw MoMo SMS backup file (modified_sms_v2.xml) and turns
@@ -11,16 +10,6 @@ the assignment asks for: transaction type, amount, sender,
 receiver, and timestamp (plus a few extras - fee, balance, and the
 transaction reference number - that are useful for the API and the
 dashboard too).
-
-WHY THIS IS TRICKIER THAN IT LOOKS
-The XML itself is simple (one flat list of <sms> elements), but
-MTN MoMo sends a DIFFERENT text format depending on what kind of
-transaction happened - a received payment reads completely
-differently from a cash deposit, which reads differently again
-from an agent withdrawal. So "parsing" here mostly means:
-  1. Figuring out WHICH kind of message this is (classify_type),
-  2. Then applying the matching set of patterns to pull out the
-     sender, receiver, amount, fee, etc. for that specific kind.
 
 This file was built by looking at real examples of every message
 type found in the dataset, so all 1691 records in the provided
@@ -33,12 +22,9 @@ import re
 import collections
 
 
-# ------------------------------------------------------------------
 # STEP 1: Figure out what kind of transaction a message is
-# ------------------------------------------------------------------
+
 # Order matters here - some checks have to come before others
-# (e.g. "reversed" must be checked before "transfer", because a
-# reversal message also happens to mention a transfer).
 
 def classify_type(body):
     """Return a short string describing what kind of SMS this is."""
@@ -70,10 +56,8 @@ def classify_type(body):
         return "payment"
     return "other"  # should not happen on the provided dataset, kept as a safety net
 
-
-# ------------------------------------------------------------------
 # STEP 2: Small helper for pulling a value out of the message text
-# ------------------------------------------------------------------
+
 def _extract(pattern, body, cast=str, flags=re.IGNORECASE):
     """
     Run `pattern` against `body` and return the first captured group,
@@ -111,9 +95,7 @@ def _txn_ref(body):
     return _extract(r'(?:TxId:?\s*|Financial Transaction Id:\s*)(\d+)', body, cast=str)
 
 
-# ------------------------------------------------------------------
 # STEP 3: Per-type field extraction
-# ------------------------------------------------------------------
 # Each function pulls out sender/receiver (as best as the text
 # allows) for one specific message type. "self" means the account
 # holder whose phone this backup came from.
@@ -222,19 +204,16 @@ _FIELD_EXTRACTORS = {
     "other": _fields_other,
 }
 
-
-# ------------------------------------------------------------------
 # STEP 4: Put it all together - one <sms> element -> one dictionary
-# ------------------------------------------------------------------
+
 def parse_sms_element(sms_element, transaction_id):
     """
     Convert one <sms> XML element into a transaction dictionary.
 
-    `transaction_id` is OUR own sequential id (1, 2, 3, ...), used
+    `transaction_id` is our own sequential id (1, 2, 3, ...), used
     as the API's primary key. We assign it ourselves rather than
     relying on the MoMo transaction reference in the text, because
     that reference is missing from roughly half of all messages
-    (e.g. cash deposits don't include one).
     """
     body = sms_element.get("body") or ""
     txn_type = classify_type(body)
@@ -270,10 +249,8 @@ def parse_sms_xml(xml_path):
 
     return transactions
 
-
-# ------------------------------------------------------------------
 # STEP 5: Run directly to parse the file and save it as JSON
-# ------------------------------------------------------------------
+
 if __name__ == "__main__":
     INPUT_PATH = "modified_sms_v2.xml"
     OUTPUT_PATH = "sms_transactions.json"
