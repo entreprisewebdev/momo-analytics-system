@@ -15217,5 +15217,14 @@
     "timestamp": "16 Jan 2025 12:13:29 AM",
     "address": "M-Money",
     "body": "TxId: 37832903831. Your payment of 24,900 RWF to Robert Brown 23478 has been completed at 2025-01-16 00:13:22. Your new balance: 4,900 RWF. Fee was 0 RWF."
+  },
+  {
+    "id": "SCREENSHOT-001",
+    "transaction_id": "SCREENSHOT-001",
+    "transaction_type": "payment",
+    "amount_rwf": 5000,
+    "timestamp": "29 September 2026 8:00:00 PM",
+    "address": "M-Money",
+    "body": "Screenshot test transaction"
   }
 ]

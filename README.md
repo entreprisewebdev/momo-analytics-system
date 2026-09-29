@@ -1,3 +1,5 @@
+SME INC.
+
 # MoMo Analytics System
 
 A Python-based MoMo Analytics System that processes mobile money SMS records and provides a REST API for securely managing transaction data.
