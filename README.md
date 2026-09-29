@@ -1,223 +1,420 @@
 # MoMo Analytics System
 
-## About the Team
+A Python-based MoMo Analytics System that processes mobile money SMS records and provides a REST API for securely managing transaction data.
 
-We are **EMS Systems**, a team of Software Engineering students passionate about using technology to solve real-world problems. We work together to build practical, accessible, and user-centered solutions that respond to people’s needs and make everyday experiences better.
+## Project Overview
 
-## Project Description
+The MoMo Analytics System processes SMS records from a mobile money service. The system parses the provided XML dataset, converts the records into structured transaction data, provides search functionality, and exposes the transaction data through a REST API.
 
-The **MoMo Analytics System** is a full-stack application designed to process and analyze Mobile Money (MoMo) SMS transaction data provided in XML format. The system will extract, clean, normalize, and categorize transaction data before storing it in a relational database. The processed data will then be used to provide a frontend dashboard for analyzing and visualizing transaction information.
+The project demonstrates:
 
-## Objectives
+* XML data parsing
+* JSON data processing
+* REST API development
+* CRUD operations
+* Basic Authentication
+* Data Structures and Algorithms
+* API testing and validation
+* API documentation
 
-- Process MoMo transaction data
-- Organize transaction information in a structured database
-- Categorize different types of transactions
-- Maintain accurate and consistent records
-- Support analysis of mobile money transaction data
-
-## Team Members
-
-* **Isingizwe Mukama Elohim Malaïka**
-* **Erica Sheja Rurangwa**
-* **Ishimwe Samuel**
-
-## System Architecture
-
-The planned system will follow this workflow:
-
-**MoMo XML Data → XML Parser → Data Cleaning & Normalization → Transaction Categorization → Database → API → Frontend Dashboard -> scripts --> Testing**
-
-The architecture will allow the system to process raw transaction data and transform it into useful information that can be explored through the dashboard.
-
-## Database Design
-
-The MoMo Analytics System uses a relational database to organize and manage mobile money transaction data.
-
-The main entities are:
-
-- Users
-- Transactions
-- Transaction Categories
-- Transaction Participants
-- System Logs
-
-The database uses primary keys, foreign keys, constraints, and indexes to maintain data integrity and support efficient data management.
-
-The Entity Relationship Diagram and detailed database design documentation are available in the `docs/` directory.
-
-## Database Setup
-
-The database setup script is located at:
-
-`database/database_setup.sql`
-
-It contains the database tables, relationships, constraints, indexes, sample data, and test queries.
-
-## JSON Examples
-
-JSON examples for the main database entities are available in:
-
-`examples/json_schemas.json`
-
-The examples demonstrate how database records can be represented in JSON format, including related transaction information.
-
-## Testing
-
-The database was tested using sample queries to verify:
-
-- Data insertion
-- Data retrieval
-- Data updating
-- Data deletion
-- Table relationships
-- Primary and foreign key constraints
-- Data validation rules
-
-Screenshots of the database queries and results are included in the Database Design Document.
-
-## Documentation
-
-The project documentation is available in the `docs/` directory.
-
-It includes:
-
-- Entity Relationship Diagram (ERD)
-- Database Design Document
-- Database design rationale
-- Data dictionary
-- Sample database queries
-- Database constraints and validation rules
-
-
-### Architecture Diagram
-
-(https://drive.google.com/file/d/1d7LZ1N_xzwSCrUD2ICQTqSIA67nqOvrM/view?usp=sharing)
-
-The architecture diagram is also available in the repository:
-
-![MoMo Analytics System Architecture](architecture/system-architecture.png)
-
-## Scrum Board
-
-We use a Scrum board to organize our work, track progress, and collaborate throughout the development process.
-
-[View our scrum board](https://github.com/orgs/entreprisewebdev/projects/1)
-
-Our board contains the following stages:
-
-* **To Do** – Tasks that have not yet been started
-* **In Progress** – Tasks currently being worked on
-* **Done** – Completed tasks
-
-  
 ## Project Structure
-
-- `api/` — API-related files
-- `database/` — SQL database setup and implementation
-- `docs/` — ERD and database design documentation
-- `examples/` — JSON examples
-- `etl/` — Data processing and transformation
-- `scripts/` — Utility and execution scripts
-- `tests/` — Testing files
 
 ```text
 momo-analytics-system/
-├── README.md
-├── .gitignore
-├── .env.example
-├── requirements.txt
-├── index.html
-├── architecture/
-│   └── system-architecture.png
-├── web/
-│   ├── styles.css
-│   ├── chart_handler.js
-│   └── assets/
-├── data/
-│   ├── raw/
-│   ├── processed/
-│   └── logs/
-│       └── dead_letter/
-├── docs/
-│   ├── Database_Design_Document.pdf
-│   ├── ERD.png
-│   └── AI_Usage_Log.pdf
-├── examples/
-│   ├── json_schemas.json
-├── database/
-│   ├── database_setup.sql
-├── etl/
-│   ├── __init__.py
-│   ├── config.py
-│   ├── parse_xml.py
-│   ├── clean_normalize.py
-│   ├── categorize.py
-│   ├── load_db.py
-│   └── run.py
+│
 ├── api/
 │   ├── __init__.py
 │   ├── app.py
 │   ├── db.py
-│   └── schemas.py
+│   ├── schemas.py
+│   └── server.py
+│
+├── dsa/
+│   ├── dsa_search.py
+│   ├── dsa_comparison_results.txt
+│   ├── modified_sms_v2.xml
+│   ├── sms_transactions.json
+│   └── xml_parser.py
+│
+├── data/
+│   └── transactions.json
+│
+├── docs/
+│   ├── api_docs.md
+│   ├── Database Design Document (1).pdf
+│   └── ERD.jpeg
+│
+├── screenshots/
+│   ├── 01_get_authenticated.png
+│   ├── 02_get_unauthorized.png
+│   ├── 03_post_success.png
+│   ├── 04_put_success.png
+│   └── 05_delete_success.png
+│
+├── database/
+│   └── database_setup.sql
+│
+├── tests/
+│
+├── web/
+│
 ├── scripts/
-│   ├── run_etl.sh
-│   ├── export_json.sh
-│   └── serve_frontend.sh
-└── tests/
-    ├── test_parse_xml.py
-    ├── test_clean_normalize.py
-    └── test_categorize.py
+│
+├── requirements.txt
+└── README.md
 ```
 
+## Requirements
 
-## Planned Features
+Before running the project, make sure you have:
 
-* Parse MoMo SMS transaction data from XML.
-* Clean and normalize transaction information.
-* Categorize different types of transactions.
-* Store structured transaction data in a relational database.
-* Provide API endpoints for accessing transactions and analytics.
-* Display transaction data through an interactive dashboard.
-* Visualize transaction trends and summaries using charts and tables.
-* Handle invalid or unparsed data through logging and a dead-letter system.
+* Python 3
+* Git
+* A terminal
+* `curl` for API testing
 
-## Technologies
+A virtual environment is recommended.
 
-The project is planned to use:
+## Setup
 
-* **Python** – ETL and backend processing
-* **MySQL** – Relational database
-* **FastAPI** – Backend API
-* **HTML, CSS & JavaScript** – Frontend
-* **Git & GitHub** – Version control and collaboration
-* **Draw.io / Miro** – System architecture
-* **Git & Github**
-  
-## Collaboration
+Clone the repository:
 
-### Isingizwe Malaika
-- AI Usage Log
-- SQL database script
-- Database Design Document
+```bash
+git clone https://github.com/entreprisewebdev/momo-analytics-system.git
+cd momo-analytics-system
+```
 
-### Erica Sheja Rurangwa
-- Scrum Board
-- Final checks and changes on the SQL database setup
-- Entity Relationship Diagram (ERD)
-- README updates
+Create a virtual environment:
 
-### Ishimwe Samuel
-- MySQL database execution and screenshots
-- JSON examples
+```bash
+python3 -m venv .venv
+```
 
-## AI Usage
+Activate it on macOS/Linux:
 
-AI tools were used in accordance with the assignment guidelines. AI assistance was used for permitted activities such as syntax checking, grammar checking, and reviewing technical work. Details of AI usage are recorded in the AI Usage Log.
+```bash
+source .venv/bin/activate
+```
 
+Install the required dependencies:
 
-## Project Status
+```bash
+pip install -r requirements.txt
+```
 
-**Current Phase:** Week 2 – Database design and implementation
+## Data
 
-During this phase, our team successfully designed and implemented a database for the MoMo SMS data processing system using the XML data and business requirements from Week 1. We created an ERD identifying the main entities, attributes, primary and foreign keys, relationships, and a junction table, then implemented the design in MySQL with appropriate data types, constraints, indexes, and sample data. We tested the database and created JSON examples showing how the relational data can be represented for API responses. We documented the database design, data dictionary, queries, security and accuracy rules, and test results in a PDF, while also organizing the ERD, SQL script, JSON examples, and README in our GitHub repository. We updated our Scrum board and team participation records and maintained an AI usage log in accordance with the assignment requirements.
+The project uses the `modified_sms_v2.xml` dataset containing mobile money SMS records.
+
+The dataset contains information such as:
+
+* Transaction ID
+* Transaction type
+* Amount
+* Timestamp
+* Sender/receiver information
+* Transaction message
+
+The XML records are processed and converted into structured JSON transaction objects.
+
+## REST API
+
+The REST API is implemented in plain Python using the built-in `http.server` module.
+
+### Starting the API
+
+From the project root, run:
+
+```bash
+python3 api/server.py
+```
+
+The API runs locally at:
+
+```text
+http://localhost:8000
+```
+
+## Authentication
+
+The API uses Basic Authentication to protect its endpoints.
+
+For testing, the credentials are:
+
+```text
+Username: admin
+Password: password
+```
+
+Example:
+
+```bash
+curl -u admin:password http://localhost:8000/transactions
+```
+
+Requests without valid credentials receive a `401 Unauthorized` response.
+
+Example:
+
+```bash
+curl http://localhost:8000/transactions
+```
+
+Response:
+
+```json
+{
+  "error": "Unauthorized",
+  "message": "Valid username and password are required."
+}
+```
+
+### Security Note
+
+Basic Authentication is suitable for demonstrating authentication in this assignment, but it is not ideal for a production system. The credentials are Base64 encoded rather than encrypted, so HTTPS should be used to protect them during transmission.
+
+Stronger authentication approaches such as JWT or OAuth 2.0 can be considered for production systems.
+
+## API Endpoints
+
+### GET /transactions
+
+Returns all transactions.
+
+```bash
+curl -u admin:password http://localhost:8000/transactions
+```
+
+Example response:
+
+```json
+{
+  "count": 1691,
+  "transactions": [
+    {
+      "id": "76662021700",
+      "transaction_id": "76662021700",
+      "transaction_type": "received",
+      "amount_rwf": 2000,
+      "timestamp": "10 May 2024 4:30:58 PM",
+      "address": "M-Money",
+      "body": "..."
+    }
+  ]
+}
+```
+
+### GET /transactions/{id}
+
+Returns a single transaction.
+
+```bash
+curl -u admin:password \
+http://localhost:8000/transactions/76662021700
+```
+
+### POST /transactions
+
+Creates a new transaction.
+
+```bash
+curl -u admin:password \
+-X POST http://localhost:8000/transactions \
+-H "Content-Type: application/json" \
+-d '{
+  "id": "TEST-001",
+  "transaction_id": "TEST-001",
+  "transaction_type": "payment",
+  "amount_rwf": 5000,
+  "timestamp": "29 September 2026 8:00:00 PM",
+  "address": "M-Money",
+  "body": "Test transaction created through the REST API"
+}'
+```
+
+### PUT /transactions/{id}
+
+Updates an existing transaction.
+
+```bash
+curl -u admin:password \
+-X PUT http://localhost:8000/transactions/TEST-001 \
+-H "Content-Type: application/json" \
+-d '{
+  "transaction_id": "TEST-001",
+  "transaction_type": "payment",
+  "amount_rwf": 7500,
+  "timestamp": "29 September 2026 8:00:00 PM",
+  "address": "M-Money",
+  "body": "Test transaction updated through the REST API"
+}'
+```
+
+### DELETE /transactions/{id}
+
+Deletes an existing transaction.
+
+```bash
+curl -u admin:password \
+-X DELETE http://localhost:8000/transactions/TEST-001
+```
+
+Example response:
+
+```json
+{
+  "message": "Transaction deleted successfully"
+}
+```
+
+## HTTP Status Codes
+
+| Status Code | Meaning                            |
+| ----------- | ---------------------------------- |
+| `200`       | Request completed successfully     |
+| `201`       | Transaction created successfully   |
+| `400`       | Bad request or invalid JSON        |
+| `401`       | Authentication required or invalid |
+| `404`       | Transaction or endpoint not found  |
+| `409`       | Transaction already exists         |
+
+## Data Structures and Algorithms
+
+The project compares two approaches for searching transaction records by ID:
+
+### Linear Search
+
+Linear search scans the transaction list one record at a time until the required ID is found.
+
+**Time complexity:**
+
+```text
+O(n)
+```
+
+### Dictionary Lookup
+
+Transactions can also be stored in a Python dictionary using the transaction ID as the key.
+
+**Average time complexity:**
+
+```text
+O(1)
+```
+
+### Comparison Results
+
+The DSA comparison was performed using the transaction dataset.
+
+```text
+Total transactions: 1691
+Searches per method: 10000
+
+Linear Search:       0.896232 seconds
+Dictionary Lookup:   0.002017 seconds
+```
+
+The dictionary lookup was approximately **444.2 times faster** in the recorded comparison.
+
+Dictionary lookup is faster because it uses a hash table, allowing the program to access a value directly through its key rather than scanning the records one by one.
+
+Other data structures or algorithms, such as balanced search trees or indexed databases, could also improve search efficiency depending on the requirements of the system.
+
+## Testing and Validation
+
+The API was tested using `curl`.
+
+The tests covered:
+
+* Successful authenticated GET request
+* Unauthorized request
+* Successful POST request
+* Successful PUT request
+* Successful DELETE request
+
+### Screenshots
+
+The test screenshots are available in the `screenshots/` directory:
+
+```text
+screenshots/
+├── 01_get_authenticated.png
+├── 02_get_unauthorized.png
+├── 03_post_success.png
+├── 04_put_success.png
+└── 05_delete_success.png
+```
+
+The CRUD lifecycle was also tested by creating a test transaction, retrieving it, updating it, deleting it, and confirming that it could no longer be retrieved.
+
+## API Documentation
+
+Detailed API documentation is available in:
+
+```text
+docs/api_docs.md
+```
+
+The documentation contains:
+
+* Endpoint and method
+* Authentication requirements
+* Request examples
+* Response examples
+* Error codes
+* Security considerations
+
+## Team Collaboration
+
+The project was completed collaboratively, with each team member responsible for specific technical tasks.
+
+### Malaika — Tasks 2 & 3
+
+**API Implementation and Authentication & Security**
+
+* Implemented the REST API using Python's built-in `http.server`.
+* Implemented CRUD endpoints:
+
+  * `GET /transactions`
+  * `GET /transactions/{id}`
+  * `POST /transactions`
+  * `PUT /transactions/{id}`
+  * `DELETE /transactions/{id}`
+* Implemented Basic Authentication for protected API endpoints.
+* Implemented authentication error handling for unauthorized requests.
+* Tested authenticated and unauthorized API requests.
+* Implemented JSON request and response handling.
+
+### Erica — Tasks 1 & 5
+
+**Data Parsing and DSA Integration**
+
+* Parsed the `modified_sms_v2.xml` dataset.
+* Converted SMS records into JSON transaction objects.
+* Implemented Linear Search for transaction records.
+* Implemented Dictionary Lookup for transaction records.
+* Compared the efficiency of the two search approaches.
+* Recorded the search performance results.
+
+### Sam — Tasks 4 & 6
+
+**API Documentation and Testing & Validation**
+
+* Prepared the API endpoint documentation.
+* Documented request and response examples.
+* Documented API error codes.
+* Conducted API testing using `curl`.
+* Captured screenshots showing successful and unauthorized requests.
+* Verified CRUD operations and authentication behavior.
+
+## Team Coordination
+
+The team used GitHub to collaborate and integrate the individual technical contributions into the final MoMo Analytics System.
+
+Each team member was responsible for their assigned technical tasks, and the completed work was integrated into the shared repository.
+
+## Conclusion
+
+The MoMo Analytics System provides a REST API for securely accessing and managing mobile money transaction data. The project demonstrates XML data processing, CRUD API development, authentication, data structure comparison, and API testing.
+
+The implementation also demonstrates the performance advantage of dictionary-based lookup over linear search for transaction ID searches while highlighting the security limitations of Basic Authentication and the potential use of stronger authentication mechanisms in production systems.
