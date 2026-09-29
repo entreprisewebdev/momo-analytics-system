@@ -89,6 +89,35 @@ It includes:
 - Sample database queries
 - Database constraints and validation rules
 
+## Data Parsing 
+
+### Files
+- `dsa/xml_parser.py` — Parses `modified_sms_v2.xml` into structured JSON.
+  Classifies each SMS into one of 12 transaction types (payment, transfer,
+  deposit, received, withdrawal, airtime, etc.) and extracts amount, fee,
+  balance, sender, receiver, and timestamp.
+- `dsa/sms_transactions.json` — Parsed output: 1,691 transactions as a list
+  of JSON objects, used by the API and the DSA comparison.
+  
+## DSA Integration
+
+- `dsa/dsa_search.py` — Implements and times **linear search** vs.
+  **dictionary lookup** for finding a transaction by ID.
+- `dsa/dsa_comparison_results.txt` — Saved timing results and a reflection
+  on why dictionary lookup wins and what else could help (binary search /
+  B-tree for range queries).
+
+### Running it
+```bash
+python3 dsa/xml_parser.py    # parses XML -> sms_transactions.json
+python3 dsa/dsa_search.py    # runs the search comparison -> results file
+```
+
+### Results
+- 1,691 / 1,691 records successfully classified.
+- Dictionary lookup was **~444.2x faster** than linear search over 10,000
+  timed searches on the full dataset (O(1) vs. O(n)).
+
 
 ### Architecture Diagram
 
